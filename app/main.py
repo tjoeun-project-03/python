@@ -2,7 +2,7 @@
 
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware # [추가] 보안 설정 모듈
-from app.api.v1.endpoints import orders, tracking, license
+from app.api.v1.endpoints import orders, tracking, license, recommend
 from app.core.config import TMAP_API_KEY
 
 app = FastAPI()
@@ -21,6 +21,7 @@ app.add_middleware(
 app.include_router(orders.router, prefix="/api/v1/orders", tags=["Orders"])
 app.include_router(tracking.router, prefix="/api/v1/tracking", tags=["Tracking"])
 app.include_router(license.router, prefix="/api/v1/license", tags=["License Verification"])
+app.include_router(recommend.router, prefix="/api/v1/recommendations", tags=["Recommendations"])
 
 if not TMAP_API_KEY:
     raise ValueError(".env 파일에 TMAP_API_KEY가 없습니다.")
